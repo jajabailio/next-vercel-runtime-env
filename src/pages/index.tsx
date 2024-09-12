@@ -2,8 +2,8 @@ import { useEnvContext } from "next-runtime-env";
 import styles from "./page.module.css";
 
 export default function Home({ serverUrl }: { serverUrl: string }) {
-  const { NEXT_PUBLIC_BASE_URL } = useEnvContext();
-  const publicUrl = NEXT_PUBLIC_BASE_URL || serverUrl;
+  const { API_BASE_URL } = useEnvContext();
+  const publicUrl = API_BASE_URL || serverUrl;
 
   console.log("publicUrl: ", publicUrl);
   return (
@@ -21,7 +21,7 @@ export default function Home({ serverUrl }: { serverUrl: string }) {
 }
 
 export const getServerSideProps = () => {
-  const serverUrl = process.env.NEXT_PUBLIC_BASE_URL || 'default_url';
+  const serverUrl = process.env.API_BASE_URL || "default_url";
   console.log("Server-side URL: ", serverUrl);
 
   return {
