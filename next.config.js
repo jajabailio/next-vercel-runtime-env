@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const { makeEnvPublic } = require("next-runtime-env");
 
-module.exports = nextConfig
+makeEnvPublic("NEXT_PUBLIC_BASE_URL");
+
+const nextConfig = {};
+
+module.exports = nextConfig;
