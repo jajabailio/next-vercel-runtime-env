@@ -1,10 +1,9 @@
 import { useEnvContext } from "next-runtime-env";
 import styles from "./page.module.css";
 
-export default function Home({ url }: { url: string }) {
-  console.log("url ", url);
+export default function Home({ serverUrl }: { serverUrl: string }) {
   const { NEXT_PUBLIC_BASE_URL } = useEnvContext();
-  const publicUrl = NEXT_PUBLIC_BASE_URL;
+  const publicUrl = NEXT_PUBLIC_BASE_URL || serverUrl;
 
   console.log("publicUrl: ", publicUrl);
   return (
@@ -14,21 +13,20 @@ export default function Home({ url }: { url: string }) {
           Get started by editing&nbsp;
           <code className={styles.code}>src/pages/index.tsx</code>
         </p>
-        <p>Hello</p>
-        {/* ... rest of the component ... */}
+        <p>Server URL: {serverUrl}</p>
+        <p>Public URL: {publicUrl}</p>
       </div>
-      {/* ... rest of the JSX ... */}
     </main>
   );
 }
 
 export const getServerSideProps = () => {
-  const url = process.env.API_BASE_URL;
-  console.log("url: ", url);
+  const serverUrl = process.env.NEXT_PUBLIC_BASE_URL || 'default_url';
+  console.log("Server-side URL: ", serverUrl);
 
   return {
     props: {
-      url,
+      serverUrl,
     },
   };
 };
